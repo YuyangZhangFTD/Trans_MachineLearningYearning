@@ -1,1 +1,134 @@
-\chapter{第五章}
+% Your development and test sets
+\chapter{开发集和测试集}
+
+\iffalse
+Lets return to our earlier cat pictures example: You run a mobile app, and users are
+uploading pictures of many different things to your app. You want to automatically find the
+cat pictures.
+Your team gets a large training set by downloading pictures of cats (positive examples) and
+non-cats (negative examples) off different websites. They split the dataset 70%/30% into
+training and test sets. Using this data, they build a cat detector that works well on the
+training and test sets.
+But when you deploy this classifier into the mobile app, you find that the performance is
+really poor!
+\fi
+
+让我们回想一下最初的例子，
+用户在你的app上面上传各种照片，
+你想自动的找出猫咪的图片。
+
+你的团队通过下载猫咪的图片得到很多含猫咪的图片（正例样本），
+和很多不含猫咪的图片（反例样本），
+将数据集分成70\%的训练集和30\%的测试集。
+通过这些数据，
+我们建立了一个在训练集和测试集上表现还可以的猫咪探测器。
+
+但是当你把分类器放在app中时，
+你会发现这个分类器的表现非常平庸！
+
+\iffalse
+What happened?
+You figure out that the pictures users are uploading have a different look than the website
+images that make up your training set: Users are uploading pictures taken with mobile
+phones, which tend to be lower resolution, blurrier, and have less ideal lighting. Since your
+training/test sets were made of website images, your algorithm did not generalize well to the
+actual distribution you care about of smartphone pictures.
+Before the modern era of big data, it was a common rule in machine learning to use a
+random 70%/30% split to form your training and test sets. This practice can work, but is a
+bad idea in more and more applications where the training distribution (website images in
+our example above) is different from the distribution you ultimately care about (mobile
+phone images).
+\fi
+
+发生了什么？
+
+你发现用户上传的图片相比于之前下载收集的训练数据图片有很大的不同：
+用户上传的图片是手机拍摄的，
+与之相比分辨率更低，很模糊，同时也没有理想的灯光。
+因为你的训练集和测试集是由网上的图片构成的，
+你的算法在小的手机照片上泛化能力很差。
+
+在大数据时代来临前，
+我们通常采用三七开来划分测试集与训练集。
+这个小技巧很有用，
+但它并不够好，
+尤其在训练数据分布（网上下载的图片）
+与你所关心的数据分布（手机拍照上传的图片）不同的情况下。
+
+\iffalse
+We usually define:
+• Training set — Which you run your learning algorithm on.
+• Dev (development) set — Which you use to tune parameters, select features, and
+make other decisions regarding the learning algorithm. Sometimes also called the holdout cross validation set.
+• Test set — which you use to evaluate the performance of the algorithm, but not to make
+any decisions about regarding what learning algorithm or parameters to use.
+One you define a dev set (development set) and test set, your team will try a lot of ideas, such
+as different learning algorithm parameters, to see what works best. The dev and test sets
+allow your team to quickly see how well your algorithm is doing.
+In other words, the purpose of the dev and test sets are to direct your team toward
+the most important changes to make to the machine learning system.
+So, you should do the following:
+Choose dev and test sets to reflect data you expect to get in the future
+and want to do well on.
+In order words, your test set should not simply be 30% of the available data, especially if you
+expect your future data (mobile app images) to be different in nature from your training set
+(website images).
+\fi
+
+我们一般这样定义：
+\begin{itemize}
+	\item \textbf{训练集} 用来训练算法的数据集。
+	\item \textbf{开发集} 用来根据你的模型，
+	调试参数，选择特征或做一些别的改善的数据集。
+	有些时候这也称作holdout交叉验证集。
+	\item \textbf{测试集} 你用来评估算法的表现，
+	但并不对学习算法或者参数做任何改变。
+\end{itemize}
+
+一旦你定义了开发集和测试集，
+你的团队才能做出一些改善的尝试，
+比如尝试使用不同的学习算法参数，来看看哪个表现更好。
+开发集和测试集令你的团队能更快了解学习算法是如何工作的。
+
+换句话说，\textbf{开发集和测试集的目的就是指导你的团队
+	向着最重要的改变的方向来建立你的机器学习系统。}
+
+所以，你应该这样做：
+
+\textit{\textbf{选择开发集和测试集来反映你的数据。}}
+
+总的来说，你的测试集不该仅单单包括30\%的数据，
+特别是你期望得到的数据与你的训练数据不同时。
+
+\iffalse
+If you have not yet launched your mobile app, you might not have any users yet, and thus
+might not be able to get data that accurately reflects what you have to do well on in the
+future. But you might still try to approximate this. For example, ask your friends to take
+mobile phone pictures and send them to you. Once your app is launched, you can update
+your dev/test sets using actual user data.
+If you really don’t have any way of getting data that approximates what you expect to get in
+the future, perhaps you can start by using website images. But you should be aware of the
+risk of this leading to a system that doesn’t generalize well.
+It requires judgment to decide how much to invest in developing great dev and test sets. But
+don’t assume your training distribution is the same as your test distribution. Try to pick test
+examples that reflect what you ultimately want to perform well on, rather than whatever data
+you happen to have for training.
+\fi
+
+如果你还没有发布你的app，
+你也不会有任何的用户，
+因此你也不会有能够准确反应现实的数据。
+但是，你可以尝试来近似。
+比如，让你的朋友拍一些照片给你。
+一旦你的app发布了，
+你就可以用用户数据来更新你的开发集和测试集。
+
+如果你真的没有任何途径来获得你未来所期待的近似数据，
+或许你可以先使用网络图片。
+但是你应该清楚，这样会降低系统的泛化能力。
+
+我们需要决定投资多少去获取好的开发集和测试集。
+但是不要假设你的训练集分布和测试集有相同的分布。
+尝试去挑选能反映你最终想要表现很好的数据作为测试样本，
+而不是你遇到的任何训练数据。
+
